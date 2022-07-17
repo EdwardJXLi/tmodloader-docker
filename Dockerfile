@@ -1,21 +1,18 @@
 ### Set up docker base
 
-# Using Alpine
-FROM alpine:3.15
+# Using Rocky Linux
+FROM rockylinux:9.0
+# TODO: replace with alpine soon once the dotnet depencency issue is fixed
 
 # Set up installs
-# Use Edge
-RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositories \
-    && echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
-    && apk update \
-    && apk upgrade
-RUN apk add curl unzip bash p7zip
+RUN dnf update -y && dnf install -y epel-release && dnf install -y curl unzip findutils p7zip p7zip-plugins dotnet-runtime-6.0
+# TODO: Look into why dotnet needs to be installed as well as the local version of dotnet installed by test
 
 # Setting User
 # Using 7777 as user ID as that is tModLoader port 
 RUN set -eux; \
-	addgroup -g 7777 -S tmodloader; \
-	adduser -u 7777 -S -D -G tmodloader -H -h /tmodserver -s /bin/sh tmodloader;
+	groupadd -g 7777 tmodloader; \
+	useradd -u 7777 -g 7777 -d /tmodserver -s /bin/sh tmodloader;
 
 # Set up folders
 RUN mkdir -p /tmodserver/.scripts; 
