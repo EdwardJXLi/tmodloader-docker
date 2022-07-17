@@ -9,7 +9,7 @@ RUN echo "https://dl-cdn.alpinelinux.org/alpine/edge/main" > /etc/apk/repositori
     && echo "https://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
     && apk update \
     && apk upgrade
-RUN apk add curl unzip
+RUN apk add curl unzip bash p7zip
 
 # Setting User
 # Using 7777 as user ID as that is tModLoader port 
@@ -18,10 +18,12 @@ RUN set -eux; \
 	adduser -u 7777 -S -D -G tmodloader -H -h /tmodserver -s /bin/sh tmodloader;
 
 # Set up folders
-RUN mkdir -p /tmodserver; \
-	chown -R tmodloader:tmodloader /tmodserver
+RUN mkdir -p /tmodserver/.scripts; 
+COPY ./scripts/* /tmodserver/.scripts
+RUN chmod +x /tmodserver/.scripts/*
 
 # Set User
+RUN chown -R tmodloader:tmodloader /tmodserver
 USER tmodloader:tmodloader
 
 ### General Arguments
@@ -37,7 +39,7 @@ ARG TMODCONFIG_autocreate=2 \
     TMODCONFIG_difficulty=0 \
     TMODCONFIG_maxplayers=16 \
     TMODCONFIG_port=7777 \
-    TMODCONFIG_password='pass' \
+    TMODCONFIG_password='' \
     TMODCONFIG_motd="Welcome To tModLoader!" \
     TMODCONFIG_worldpath=${WORLDS_DIR} \
     TMODCONFIG_banlist=banlist.txt \
@@ -47,8 +49,15 @@ ARG TMODCONFIG_autocreate=2 \
     TMODCONFIG_npcstream=1 \
     TMODCONFIG_priority=1
 
-# Initialize Container
+### Initialize Container
 
 RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR} ${PLAYERS_DIR}
+VOLUME ["${MODS_DIR}", "${WORLDS_DIR}", "${PLAYERS_DIR}"]
 
+# Download and Install tModLoader 1.4
+RUN /tmodserver/.scripts/install-tmodloader.sh $TMODLOADER_VERSION
+
+# Start Server
 WORKDIR /tmodserver
+
+CMD [ "/tmodserver/.scripts/start-tmodloader.sh" ]
