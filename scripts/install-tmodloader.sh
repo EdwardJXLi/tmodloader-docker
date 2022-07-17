@@ -24,9 +24,15 @@ curl -L --silent ${downloadURL} --output /tmodserver/tmodloader-server.zip
 
 # Extract tmod
 echo "Extracting tModLoader"
-unzip -o /tmodserver/tmodloader-server.zip -d /tmodserver/
+unzip -o tmodloader-server.zip -d /tmodserver/
+
+# Run all patches
+echo "Running all patches..."
+for f in /tmodserver/.scripts/patches/*.sh; do
+  bash "$f" 
+done
 
 # Clean up!
 echo "Cleaning Up!"
-rm /tmodserver/tmodloader-server.zip
+rm tmodloader-server.zip
 chmod +x /tmodserver/start-tModLoaderServer.sh

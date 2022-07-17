@@ -20,6 +20,7 @@ RUN set -eux; \
 # Set up folders
 RUN mkdir -p /tmodserver/.scripts; 
 COPY ./scripts/* /tmodserver/.scripts
+COPY ./scripts/patches* /tmodserver/.scripts/patches
 RUN chmod +x /tmodserver/.scripts/*
 
 # Set User
@@ -55,9 +56,9 @@ RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR} ${PLAYERS_DIR}
 VOLUME ["${MODS_DIR}", "${WORLDS_DIR}", "${PLAYERS_DIR}"]
 
 # Download and Install tModLoader 1.4
+WORKDIR /tmodserver
+
 RUN /tmodserver/.scripts/install-tmodloader.sh $TMODLOADER_VERSION
 
 # Start Server
-WORKDIR /tmodserver
-
 CMD [ "/tmodserver/.scripts/start-tmodloader.sh" ]
