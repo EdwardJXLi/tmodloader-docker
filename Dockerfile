@@ -29,41 +29,17 @@ USER ${TMOD_USERNAME}:${TMOD_USERNAME}
 ### General Arguments
 ARG TMODLOADER_VERSION=latest \
     MODS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Mods \
-    WORLDS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Worlds \
-    PLAYERS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Players
-
-# Set Terraria Server Config Arguments
-ENV TMODCONFIG_autocreate=2 \
-    TMODCONFIG_seed= \
-    TMODCONFIG_worldname=TerrariaWorld \
-    TMODCONFIG_difficulty=0 \
-    TMODCONFIG_maxplayers=16 \
-    TMODCONFIG_port=7777 \
-    TMODCONFIG_password='' \
-    TMODCONFIG_motd="Welcome To tModLoader!" \
-    TMODCONFIG_worldpath=${WORLDS_DIR} \
-    TMODCONFIG_banlist=banlist.txt \
-    TMODCONFIG_secure=1 \
-    TMODCONFIG_language=en/US \
-    TMODCONFIG_upnp=1 \
-    TMODCONFIG_npcstream=1 \
-    TMODCONFIG_priority=1
+    WORLDS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Worlds
 
 ### Initialize Container
 
-RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR} ${PLAYERS_DIR}
-VOLUME ["${MODS_DIR}", "${WORLDS_DIR}", "${PLAYERS_DIR}"]
+RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR}
+VOLUME ["${MODS_DIR}", "${WORLDS_DIR}"]
 
 # Download and Install tModLoader 1.4
 WORKDIR ${TMOD_HOMEDIR}
 
 RUN ${TMOD_HOMEDIR}/.scripts/install-tmodloader.sh $TMODLOADER_VERSION
-
-# Create Config File
-RUN rm ${TMOD_HOMEDIR}/serverconfig.txt; \
-    touch ${TMOD_HOMEDIR}/serverconfig.txt; \
-    set | grep TMODCONFIG | grep -wv BASH_EXECUTION_STRING | \
-    while read line; do echo $line | sed 's/TMODCONFIG_//g' >> ${TMOD_HOMEDIR}/serverconfig.txt; done 
 
 # Start Server
 CMD [ "sh", "-c", "${TMOD_HOMEDIR}/.scripts/start-tmodloader.sh" ]
