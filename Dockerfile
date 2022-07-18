@@ -7,7 +7,7 @@ ENV TMOD_HOMEDIR=/tmodserver
 # TODO: replace with alpine soon once the dotnet depencency issue is fixed
 
 # Set up installs
-RUN dnf update -y && dnf install -y epel-release && dnf install -y curl unzip findutils p7zip p7zip-plugins dotnet-runtime-6.0
+RUN dnf update -y && dnf install -y epel-release && dnf install -y curl unzip findutils p7zip p7zip-plugins dotnet-runtime-6.0 crypto-policies-scripts
 # TODO: Look into why dotnet needs to be installed as well as the local version of dotnet installed by test
 
 # Setting User
@@ -21,6 +21,10 @@ RUN mkdir -p ${TMOD_HOMEDIR}/.scripts;
 COPY ./scripts/* ${TMOD_HOMEDIR}/.scripts
 COPY ./scripts/patches* ${TMOD_HOMEDIR}/.scripts/patches
 RUN chmod +x ${TMOD_HOMEDIR}/.scripts/*
+
+# Relaxing crypto policies to get tModLoader to work
+RUN update-crypto-policies --set DEFAULT:SHA1
+# TODO: this is kinda hacky. Remove once a better solution is found
 
 # Set User
 RUN chown -R ${TMOD_USERNAME}:${TMOD_USERNAME} ${TMOD_HOMEDIR}
