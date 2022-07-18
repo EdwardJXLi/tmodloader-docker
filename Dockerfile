@@ -26,9 +26,9 @@ USER tmodloader:tmodloader
 
 ### General Arguments
 ARG TMODLOADER_VERSION=latest \
-    MODS_DIR=/tmodserver/.local/share/Terraria/ModLoader/Mods \
-    WORLDS_DIR=/tmodserver/.local/share/Terraria/ModLoader/Worlds \
-    PLAYERS_DIR=/tmodserver/.local/share/Terraria/ModLoader/Players
+    MODS_DIR=/tmodserver/.local/share/Terraria/tModLoader/Mods \
+    WORLDS_DIR=/tmodserver/.local/share/Terraria/tModLoader/Worlds \
+    PLAYERS_DIR=/tmodserver/.local/share/Terraria/tModLoader/Players
 
 # Set Terraria Server Config Arguments
 ENV TMODCONFIG_autocreate=2 \
