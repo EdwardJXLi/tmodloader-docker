@@ -15,7 +15,7 @@ if [[ $arch == aarch64 ]] && [[ $tmodversion = v2022.06.96.4 ]]; then
     echo "Patching for arm64"
     # Patch tModLoader for arm64
     curl -L --silent "https://github.com/joshua-software-dev/tModLoader/releases/download/v2022.06.96.4arm/tModLoader_v2022.06.96.4_arm64_fix.7z" --output arm_patch.7z
-    7z x arm_patch.7z -o/tmodserver -aoa
+    7z x arm_patch.7z -o${TMOD_HOMEDIR} -aoa
     # Clean Up
     rm arm_patch.7z
     echo "Patching Successful!"
@@ -23,7 +23,7 @@ elif [[ $arch == aarch32 ]] && [[ $tmodversion = v2022.06.96.4 ]]; then
     echo "Patching for arm32"
     # Patch tModLoader for arm32
     curl -L --silent "https://github.com/joshua-software-dev/tModLoader/releases/download/v2022.06.96.4arm/tModLoader_v2022.06.96.4_arm32_fix.7z" --output arm_patch.7z
-    7z x arm_patch.7z -o/tmodserver -aoa
+    7z x arm_patch.7z -o${TMOD_HOMEDIR} -aoa
     # Clean Up
     rm arm_patch.7z
     echo "Patching Successful!"

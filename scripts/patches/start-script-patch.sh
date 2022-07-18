@@ -2,5 +2,5 @@
 set -eux
 
 echo "Patching start-tModLoaderServer.sh to Ignore Reads"
-sed -i '/read/ s/^#*/#/g' /tmodserver/start-tModLoaderServer.sh
+sed -i '/read/ s/^#*/#/g' ${TMOD_HOMEDIR}/start-tModLoaderServer.sh
 echo "Patch Successful!"
