@@ -31,7 +31,7 @@ ARG TMODLOADER_VERSION=latest \
     PLAYERS_DIR=/tmodserver/.local/share/Terraria/ModLoader/Players
 
 # Set Terraria Server Config Arguments
-ARG TMODCONFIG_autocreate=2 \
+ENV TMODCONFIG_autocreate=2 \
     TMODCONFIG_seed= \
     TMODCONFIG_worldname=TerrariaWorld \
     TMODCONFIG_difficulty=0 \
