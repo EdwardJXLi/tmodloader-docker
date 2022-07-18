@@ -59,5 +59,11 @@ WORKDIR ${TMOD_HOMEDIR}
 
 RUN ${TMOD_HOMEDIR}/.scripts/install-tmodloader.sh $TMODLOADER_VERSION
 
+# Create Config File
+RUN rm ${TMOD_HOMEDIR}/serverconfig.txt; \
+    touch ${TMOD_HOMEDIR}/serverconfig.txt; \
+    set | grep TMODCONFIG | grep -wv BASH_EXECUTION_STRING | \
+    while read line; do echo $line | sed 's/TMODCONFIG_//g' >> ${TMOD_HOMEDIR}/serverconfig.txt; done 
+
 # Start Server
 CMD [ "sh", "-c", "${TMOD_HOMEDIR}/.scripts/start-tmodloader.sh" ]
