@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 echo "Attempting to patch tModLoader for Arm32 and Arm64!"
 echo "Using modified dlls by https://github.com/joshua-software-dev/tModLoader/releases/tag/v2022.06.96.4arm"

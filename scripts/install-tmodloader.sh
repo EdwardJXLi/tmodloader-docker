@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 # Get tModLoader Server Version
 if [ "${1}" = "latest" ]

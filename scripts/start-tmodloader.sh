@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eux
+set -eu
 
 # Start Server
 echo "Starting tModLoader..."
