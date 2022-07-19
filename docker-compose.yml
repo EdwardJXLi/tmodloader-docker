@@ -1,0 +1,21 @@
+version: '3.2'
+services:
+  tmodloader:
+    build: https://github.com/RadioactiveHydra/tmodloader-docker#main
+    container_name: tmodloader
+    restart: unless-stopped
+    stdin_open: true
+    tty: true
+    ports:
+      - 7777:7777
+    volumes:
+      - type: bind
+        source: ./Worlds
+        target: /tmodserver/.local/share/Terraria/tModLoader/Worlds/
+      - type: bind
+        source: ./Mods
+        target: /tmodserver/.local/share/Terraria/tModLoader/Mods/
+      - type: bind
+        source: ./serverconfig.txt
+        target: /tmodserver/serverconfig.txt
+        read_only: true
