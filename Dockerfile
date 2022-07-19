@@ -19,8 +19,7 @@ RUN set -eux; \
 # Set up folders
 RUN mkdir -p ${TMOD_HOMEDIR}/.scripts; 
 COPY ./scripts/* ${TMOD_HOMEDIR}/.scripts
-COPY ./scripts/patches* ${TMOD_HOMEDIR}/.scripts/patches
-RUN chmod +x ${TMOD_HOMEDIR}/.scripts/*
+RUN chmod +Rx ${TMOD_HOMEDIR}/.scripts/*
 
 # Relaxing crypto policies to get tModLoader to work
 RUN update-crypto-policies --set DEFAULT:SHA1
