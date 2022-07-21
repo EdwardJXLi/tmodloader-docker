@@ -29,5 +29,4 @@ elif [[ $arch == aarch32 ]] && [[ $tmodversion = v2022.06.96.4 ]]; then
     echo "Patching Successful!"
 else
     echo "Unsupported architecture or version for patch"
-    exit 1
 fi
