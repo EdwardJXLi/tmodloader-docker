@@ -39,6 +39,9 @@ services:
         source: ./Mods
         target: /tmodserver/.local/share/Terraria/tModLoader/Mods/
       - type: bind
+        source: ./ModConfigs
+        target: /tmodserver/serverconfig.txt
+      - type: bind
         source: ./serverconfig.txt
         target: /tmodserver/serverconfig.txt
         read_only: true

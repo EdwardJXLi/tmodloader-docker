@@ -17,9 +17,9 @@ RUN set -eux; \
 	useradd -u 7777 -g 7777 -d ${TMOD_HOMEDIR} -s /bin/sh ${TMOD_USERNAME};
 
 # Set up folders
-RUN mkdir -p ${TMOD_HOMEDIR}/.scripts; 
-COPY ./scripts/* ${TMOD_HOMEDIR}/.scripts
-RUN chmod +Rx ${TMOD_HOMEDIR}/.scripts/*
+RUN mkdir -p ${TMOD_HOMEDIR}/.scripts 
+COPY ./scripts ${TMOD_HOMEDIR}/.scripts
+RUN chmod -R +x ${TMOD_HOMEDIR}/.scripts
 
 # Relaxing crypto policies to get tModLoader to work
 RUN update-crypto-policies --set DEFAULT:SHA1
@@ -32,12 +32,13 @@ USER ${TMOD_USERNAME}:${TMOD_USERNAME}
 ### General Arguments
 ARG TMODLOADER_VERSION=latest \
     MODS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Mods \
-    WORLDS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Worlds
+    WORLDS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/Worlds \
+    MODCONFIGS_DIR=${TMOD_HOMEDIR}/.local/share/Terraria/tModLoader/ModConfigs
 
 ### Initialize Container
 
-RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR}
-VOLUME ["${MODS_DIR}", "${WORLDS_DIR}"]
+RUN mkdir -p ${MODS_DIR} ${WORLDS_DIR} ${MODCONFIGS_DIR}
+VOLUME ["${MODS_DIR}", "${WORLDS_DIR}", "${MODCONFIGS_DIR}"]
 
 # Download and Install tModLoader 1.4
 WORKDIR ${TMOD_HOMEDIR}
