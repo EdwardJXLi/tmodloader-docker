@@ -16,7 +16,7 @@
 ## Setup Guide:
 - Clone this repository or copy the `docker-compose.yml` file below
 - Modify the `docker-compose.yml` file to your liking
-- Create the `/Worlds`, `/Mods` directory in your target location (By default it is in the home directory)
+- Create the `/Worlds`, `/Mods`, and `/ModConfigs` directory in your target location (By default it is in the home directory)
 - Start the server with `docker-compose up -d`
 
 ## docker-compose.yml example
@@ -40,7 +40,7 @@ services:
         target: /tmodserver/.local/share/Terraria/tModLoader/Mods/
       - type: bind
         source: ./ModConfigs
-        target: /tmodserver/serverconfig.txt
+        target: /tmodserver/.local/share/Terraria/tModLoader/ModConfigs/
       - type: bind
         source: ./serverconfig.txt
         target: /tmodserver/serverconfig.txt
