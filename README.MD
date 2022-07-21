@@ -24,7 +24,7 @@
 version: '3.2'
 services:
   tmodloader:
-    build: https://github.com/RadioactiveHydra/tmodloader-docker#main
+    image: radioactivehydra/tmodloader:latest
     container_name: tmodloader
     restart: unless-stopped
     stdin_open: true
