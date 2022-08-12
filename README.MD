@@ -46,3 +46,9 @@ services:
         target: /tmodserver/serverconfig.txt
         read_only: true
 ```
+
+## Acknowledgements
+Thank you to [Chicken-Bones](https://github.com/Chicken-Bones), [joshua-software-dev](https://github.com/joshua-software-dev), [NicolaeBet](https://github.com/NicolaeBet), and many more people with greater C# experience than I do for implementing patches for SteamWorks on tModLoader 1.4! 
+- https://github.com/tModLoader/tModLoader/pull/2639
+- https://github.com/joshua-software-dev/tModLoader/releases/tag/v2022.06.96.4arm
+- https://github.com/NicolaeBet
